@@ -9,14 +9,14 @@ import SwiftUI
 
 #if os(iOS)
 /// alias for UIColor/NSColor depending on user's OS
-typealias NativeColor = UIColor
+public typealias NativeColor = UIColor
 #else
 /// alias for UIColor/NSColor depending on user's OS
-typealias NativeColor = NSColor
+public typealias NativeColor = NSColor
 #endif
 
 /// enum for using NSColor/UIColor or SwiftUI's color without any conditionals
-enum NavigationTitleColor {
+public enum NavigationTitleColor {
     /// case for SwiftUI color
     case color(Color)
     
@@ -31,5 +31,12 @@ enum NavigationTitleColor {
         case .nativeColor(let nativeColor):
             return nativeColor
         }
+    }
+}
+
+/// extension for Equatable conformance
+extension NavigationTitleColor: Equatable {
+    public static func == (lhs: NavigationTitleColor, rhs: NavigationTitleColor) -> Bool {
+        return lhs.getNativeColor() == lhs.getNativeColor()
     }
 }
